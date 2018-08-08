@@ -1,0 +1,25 @@
+{
+  "name": "node-red-contrib-beaconscanner",
+  "version": "0.1.0",
+  "description": "Beacon scanner nodes for node-red",
+  "author": "Vinicius Seixas <vinicius@seixasonline.net>",
+  "dependencies": {
+    "noble": "latest",
+    "node-beacon-scanner": "latest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vipseixas/node-red-contrib-beaconscanner"
+  },
+  "keywords": [
+    "node-red",
+    "ble",
+    "beacon",
+    "node-beacon-scanner"
+  ],
+  "node-red": {
+    "nodes": {
+      "BeaconScanner": "BeaconScanner.js"
+    }
+  }
+}
