@@ -6,7 +6,7 @@ module.exports = function (RED) {
 		node.status({
 			fill: scanning ? "blue" : error ? "red" : "gray",
 			shape: "dot",
-			text: scanning ? "scanning" : error ? "error: " + error : "stopped"
+			text: scanning ? "scanning" : error ? "error" : "stopped"
 		});
 	};
 
@@ -16,7 +16,7 @@ module.exports = function (RED) {
 			console.log('Scanner started');
 		}).catch((error) => {
 			setStatus(node, false, error);
-			console.error('Error starting scanner', error);
+			console.error('Error starting scanner', JSON.stringify(error));
 		});
 	};
 
@@ -26,7 +26,7 @@ module.exports = function (RED) {
 			console.log('Scanner stopped');
 		}).catch((error) => {
 			setStatus(node, false, error);
-			console.error('Error stopping scanner', error);
+			console.error('Error stopping scanner', JSON.stringify(error));
 		});
 	}
 
@@ -57,7 +57,7 @@ module.exports = function (RED) {
 			msg.payload = JSON.stringify(ad);
 			node.send(msg);
 
-			console.log(JSON.stringify(ad, null, '  '));
+			console.log('Sending message payload', msg.payload);
 		};
 
 		this.on("close", function () {
