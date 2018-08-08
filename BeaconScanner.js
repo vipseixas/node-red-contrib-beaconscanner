@@ -21,13 +21,9 @@ module.exports = function (RED) {
 	};
 
 	let stop = (node, scanner) => {
-		scanner.stopScan().then(() => {
-			setStatus(node, false)
-			console.log('Scanner stopped');
-		}).catch((error) => {
-			setStatus(node, false, error);
-			console.error('Error stopping scanner', JSON.stringify(error));
-		});
+		scanner.stopScan();
+		setStatus(node, false)
+		console.log('Scanner stopped');
 	}
 
 	function BeaconScanner(n) {
