@@ -33,35 +33,31 @@ module.exports = function (RED) {
 	function BeaconScanner(n) {
 		RED.nodes.createNode(this, n);
 
-		var msg = {};
-		var node = this;
+		// Initial status
+		setStatus(this, false);
 
-		// Status icon
-		this.status({
-			fill: "grey",
-			shape: "dot",
-			text: "not scanning"
-		});
-
+		// Read input
 		this.on("input", function (msg) {
 			if (msg.payload === true || msg.payload === "on") {
-				start(node, scanner);
+				start(this, scanner);
 			} else {
-				stop(node, scanner);
+				stop(this, scanner);
 			}
 		});
 
-		scanner.onadvertisement = (ad) => {
+		// Send message when receive an advertisement
+		scanner.onadvertisement = (data) => {
 			msg = {};
-			msg.topic = node.topic;
-			msg.payload = JSON.stringify(ad);
-			node.send(msg);
+			msg.topic = this.topic;
+			msg.payload = JSON.stringify(data);
+			this.send(msg);
 
 			console.log('Sending message payload', msg.payload);
 		};
 
+		// Stop scanning on close
 		this.on("close", function () {
-			stop(node, scanner);
+			stop(this, scanner);
 		});
 	}
 
