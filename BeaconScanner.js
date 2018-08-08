@@ -1,6 +1,6 @@
 module.exports = function (RED) {
-	const BeaconScanner = require('node-beacon-scanner');
-	const scanner = new BeaconScanner();
+	const BS = require('node-beacon-scanner');
+	const scanner = new BS();
 
 	let setStatus = (node, scanning, error) => {
 		node.status({
@@ -65,7 +65,5 @@ module.exports = function (RED) {
 		});
 	}
 
-	// Register the node by name. This must be called before overriding any of the
-	// Node functions.
 	RED.nodes.registerType("BeaconScanner", BeaconScanner);
 }
